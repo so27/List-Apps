@@ -1,0 +1,85 @@
+﻿Version=5.02
+NumberOfModules=0
+Build1=Default,b4a.example
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="14"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~SetApplicationAttribute(android:theme, "@android:style/Theme.Holo")~\n~'End of default text.~\n~
+IconFile=
+NumberOfFiles=1
+File1=Main.bal
+NumberOfLibraries=3
+Library1=core
+Library2=dialogs
+Library3=phone
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: List all Apps
+	#VersionCode: 1
+	#VersionName: 
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: unspecified
+	#CanInstallToExternalStorage: False
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: False
+	#IncludeTitle: True
+#End Region
+
+Sub Process_Globals
+	'These global variables will be declared once when the application starts.
+	'These variables can be accessed from all modules.
+
+End Sub
+
+Sub Globals
+	'These global variables will be redeclared each time the activity is created.
+	'These variables can only be accessed from this module.
+
+	Private ListView1 As ListView
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	'Do not forget to load the layout file created with the visual designer. For example:
+	Activity.LoadLayout("Main")
+	
+	
+	ListView1.TwoLinesAndBitmap.Label.textColor = Colors.ARGB(255,17,179,240)
+	ListView1.TwoLinesAndBitmap.Label.TextSize=20
+	ListView1.TwoLinesAndBitmap.secondLabel.textColor = Colors.ARGB(255,97,115,121)
+	ListView1.TwoLinesAndBitmap.secondLabel.TextSize=13
+	
+	ListView1.SetLayout(0dip ,0dip ,100%x ,100%y)	
+
+	Einlesen
+		
+End Sub
+
+Sub Activity_Resume
+
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+
+End Sub
+
+Sub Einlesen
+
+ListView1.clear
+Dim pl As List
+Dim  pm As PackageManager
+
+	Dim bdw As BitmapDrawable
+
+	pl = pm.GetInstalledPackages
+
+	For a=0 To pl.Size-1
+
+	 If pl.Get(a)="com.android.systemui" Then Continue
+
+	Log(pl.Get(a))
+		bdw = pm.GetApplicationIcon(pl.Get(a))	
+		ListView1.AddTwoLinesAndBitmap2(pm.GetApplicationLabel(pl.Get(a)),pl.Get(a), bdw.Bitmap, pl.Get(a))
+
+	Next 
+
+End Sub
+
